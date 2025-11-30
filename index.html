@@ -9,27 +9,58 @@
   
   <style>
     /* ============================
+       Western 主题配色定义
+       ============================ */
+    :root {
+      --western-purple: #4F2683;       /* Western 官方深紫 */
+      --western-light: #E6E0EE;        /* 浅紫色背景 */
+      --western-hover: #361a5c;        /* 鼠标悬停深色 */
+      --text-main: #333333;
+      --text-secondary: #666666;
+    }
+
+    /* ============================
        全局样式 (Global Styles)
        ============================ */
     body {
-      background-color: #ffffff;
+      /* 背景图设置 */
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed; /* 视差滚动效果 */
+      background-repeat: no-repeat;
+      
       font-family: 'Lato', Verdana, Helvetica, sans-serif;
       font-size: 16px;
       line-height: 1.6;
-      color: #333;
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 40px 20px;
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center; /* 居中显示内容卡片 */
     }
 
-    a { color: #1e6bb8; text-decoration: none; transition: color 0.2s; }
-    a:hover { color: #154c85; text-decoration: underline; }
+    /* 核心卡片容器：磨砂玻璃效果 */
+    .main-container {
+      background-color: rgba(255, 255, 255, 0.95); /* 95%不透明度，透出一点点背景 */
+      max-width: 850px;
+      width: 100%;
+      margin: 40px 20px;
+      padding: 50px 60px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2); /* 更深邃的阴影 */
+      border-radius: 8px;
+    }
+
+    /* 链接样式 - 改为 Western Purple */
+    a { color: var(--western-purple); text-decoration: none; transition: all 0.2s; font-weight: 500; }
+    a:hover { color: var(--western-hover); text-decoration: underline; }
     
     h1, h2, h3 { font-family: 'Georgia', serif; color: #111; font-weight: normal; }
-    h1 { font-size: 2.3em; margin-bottom: 5px; letter-spacing: -0.5px; }
+    h1 { font-size: 2.4em; margin-bottom: 5px; letter-spacing: -0.5px; }
     
     /* ============================
-       Header: 个人简介 (精修版)
+       Header: 个人简介 (分层设计)
        ============================ */
     .header-container { 
       display: flex; 
@@ -46,40 +77,80 @@
       height: 200px; 
       object-fit: cover; 
       border-radius: 50%; 
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* 增加一点阴影让头像更立体 */
+      border: 5px solid #fff; 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
       transition: transform 0.3s;
     }
-    .profile-img:hover { transform: scale(1.02); } /* 鼠标悬停微动特效 */
+    .profile-img:hover { transform: scale(1.05) rotate(2deg); }
 
-    /* 简介中的副标题 */
-    .bio-subtitle { font-size: 1.1em; color: #555; margin-bottom: 15px; }
+    /* 层级1: 核心身份 (大号字体) */
+    .bio-role { 
+      font-size: 1.2em; 
+      color: #000; 
+      margin-top: 10px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    
+    /* 层级2: 教育历史 (灰色，弱化) */
+    .bio-education {
+      color: var(--text-secondary);
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
 
-    /* 研究兴趣标签 */
+    /* 层级3: 研究兴趣 (紫色标签) */
+    .research-section { margin-bottom: 22px; }
+    .research-label { 
+      font-size: 0.8em; 
+      text-transform: uppercase; 
+      letter-spacing: 1.2px; 
+      color: #888; 
+      margin-bottom: 8px; 
+      font-weight: bold;
+      display: block;
+    }
     .interest-tag {
       display: inline-block;
-      background-color: #f1f3f5;
-      color: #555;
-      padding: 3px 10px;
-      border-radius: 15px;
+      background-color: var(--western-light); /* 浅紫底 */
+      color: var(--western-purple);           /* 深紫字 */
+      padding: 4px 12px;
+      border-radius: 20px;
       font-size: 0.9em;
       margin-right: 6px;
       margin-bottom: 6px;
-      font-weight: 500;
-      border: 1px solid #e9ecef;
+      font-weight: 600;
+      border: 1px solid rgba(79, 38, 131, 0.1);
+      transition: background-color 0.2s;
     }
+    .interest-tag:hover { background-color: #dcd0eb; }
+
+    /* 层级4: 当前状态 (Western Purple Highlight Box) */
+    .current-status-box {
+      background-color: #fbfaff;
+      border-left: 4px solid var(--western-purple); /* 左侧紫色竖线 */
+      padding: 12px 18px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95em;
+      color: #444;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .status-icon { margin-right: 8px; }
 
     /* 社交图标栏 */
-    .social-links { margin-top: 20px; display: flex; align-items: center; }
+    .social-links { display: flex; align-items: center; }
     .social-icon { 
       display: inline-flex; 
       align-items: center; 
-      margin-right: 15px; 
-      color: #444; 
+      margin-right: 25px; 
+      color: #555; 
       font-size: 0.95em; 
+      font-weight: 500;
     }
-    .social-icon svg { width: 22px; height: 22px; margin-right: 6px; fill: #444; transition: fill 0.2s; }
-    .social-icon:hover { color: #1e6bb8; text-decoration: none; }
-    .social-icon:hover svg { fill: #1e6bb8; }
+    .social-icon svg { width: 20px; height: 20px; margin-right: 6px; fill: #555; transition: fill 0.2s; }
+    .social-icon:hover { color: var(--western-purple); text-decoration: none; }
+    .social-icon:hover svg { fill: var(--western-purple); }
     
     /* ============================
        Section Titles
@@ -115,26 +186,26 @@
     .paper-title { font-size: 1.15em; font-weight: bold; color: #222; margin-bottom: 5px; }
     .paper-authors { font-size: 1em; color: #444; margin-bottom: 5px; }
     
-    /* 期刊/会议标签样式 */
+    /* 期刊标签 - 紫色系 */
     .journal-tag {
       display: inline-block;
-      background-color: #e8f0fe;
-      color: #1967d2;
+      background-color: var(--western-light);
+      color: var(--western-purple);
       padding: 2px 8px;
       border-radius: 4px;
       font-size: 0.85em;
-      font-weight: 600;
+      font-weight: 700;
       margin-right: 8px;
-      border: 1px solid #d2e3fc;
+      border: 1px solid rgba(79, 38, 131, 0.15);
     }
     .paper-conf-details { font-style: italic; color: #666; font-size: 0.95em; }
 
-    /* 按钮组 */
+    /* 按钮组 - 紫色系 */
     .btn-group { margin-top: 8px; }
     .btn {
       display: inline-block;
-      border: 1px solid #1e6bb8;
-      color: #1e6bb8;
+      border: 1px solid var(--western-purple);
+      color: var(--western-purple);
       padding: 3px 12px;
       border-radius: 4px;
       font-size: 0.85em;
@@ -143,7 +214,7 @@
       transition: all 0.2s;
     }
     .btn:hover {
-      background-color: #1e6bb8;
+      background-color: var(--western-purple);
       color: #fff;
       text-decoration: none;
     }
@@ -152,9 +223,10 @@
        Mobile Adaptation
        ============================ */
     @media (max-width: 700px) {
+      .main-container { margin: 0; border-radius: 0; padding: 30px 20px; }
       .header-container { flex-direction: column-reverse; align-items: center; text-align: center; }
       .bio-text { padding-right: 0; margin-top: 25px; }
-      .social-links { justify-content: center; }
+      .social-links { justify-content: center; margin-top: 20px;}
       .profile-img { width: 160px; height: 160px; }
       .news-date { width: 25%; }
     }
@@ -163,43 +235,45 @@
 
 <body>
 
+<div class="main-container">
+
   <div class="header-container">
     <div class="bio-text">
       <h1>Yuxi Liu (刘玉玺)</h1>
       
-      <div class="bio-subtitle">
+      <div class="bio-role">
         <strong>PhD Student in Computer Engineering</strong><br>
         Department of Electrical and Computer Engineering<br>
         <a href="https://www.uwo.ca/" target="_blank">Western University</a>, Canada
       </div>
       
-      <p>
-        I am a Ph.D. student at Western University, advised by <a href="#">Prof. Yimin Yang</a>. 
-        Before joining Western, I received my M.Sc. degree from Zhengzhou University (2022).
-      </p>
-      
-      <p style="margin-bottom: 10px; color: #444; font-weight: bold;">Research Interests:</p>
-      <div style="margin-bottom: 15px;">
+      <div class="bio-education">
+        Advised by <a href="#">Prof. Yimin Yang</a>.<br>
+        Previous: M.Sc. at Zhengzhou University (2022).
+      </div>
+
+      <div class="research-section">
+        <span class="research-label">Research Interests</span>
         <span class="interest-tag">Network Science</span>
         <span class="interest-tag">Model Optimization</span>
         <span class="interest-tag">Time Series Analysis</span>
         <span class="interest-tag">RNNs & ESNs</span>
       </div>
-      <p>
-         Currently, I am working on <strong>Coreset & LLM Recommendation</strong>.
-      </p>
+
+      <div class="current-status-box">
+        <span class="status-icon">🚀 <strong>Current Focus:</strong></span> 
+        Working on <strong>Coreset & LLM Recommendation</strong>.
+      </div>
 
       <div class="social-links">
         <a href="mailto:yliu4929@uwo.ca" class="social-icon">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           Email
         </a>
-        
         <a href="https://github.com/sankunliu" target="_blank" class="social-icon">
           <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
-        
         <a href="https://scholar.google.com/citations?user=QrTfgTUAAAAJ&hl=zh-CN" target="_blank" class="social-icon">
           <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
           Google Scholar
@@ -280,5 +354,5 @@
 
   <div style="height: 50px;"></div>
 
-</body>
+</div> </body>
 </html>
