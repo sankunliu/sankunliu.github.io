@@ -26,35 +26,68 @@
     a:hover { color: #154c85; text-decoration: underline; }
     
     h1, h2, h3 { font-family: 'Georgia', serif; color: #111; font-weight: normal; }
-    h1 { font-size: 2.2em; margin-bottom: 5px; }
+    h1 { font-size: 2.3em; margin-bottom: 5px; letter-spacing: -0.5px; }
     
     /* ============================
-       Header: 个人简介
+       Header: 个人简介 (精修版)
        ============================ */
     .header-container { 
       display: flex; 
       align-items: flex-start; 
-      margin-bottom: 50px; 
+      margin-bottom: 40px; 
       border-bottom: 1px solid #eee; 
-      padding-bottom: 30px; 
+      padding-bottom: 40px; 
     }
-    .bio-text { flex: 1; padding-right: 30px; }
+    .bio-text { flex: 1; padding-right: 40px; }
     
+    /* 头像样式 */
     .profile-img { 
-      width: 180px; 
-      height: 180px; 
+      width: 200px; 
+      height: 200px; 
       object-fit: cover; 
       border-radius: 50%; 
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* 增加一点阴影让头像更立体 */
+      transition: transform 0.3s;
     }
+    .profile-img:hover { transform: scale(1.02); } /* 鼠标悬停微动特效 */
+
+    /* 简介中的副标题 */
+    .bio-subtitle { font-size: 1.1em; color: #555; margin-bottom: 15px; }
+
+    /* 研究兴趣标签 */
+    .interest-tag {
+      display: inline-block;
+      background-color: #f1f3f5;
+      color: #555;
+      padding: 3px 10px;
+      border-radius: 15px;
+      font-size: 0.9em;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      font-weight: 500;
+      border: 1px solid #e9ecef;
+    }
+
+    /* 社交图标栏 */
+    .social-links { margin-top: 20px; display: flex; align-items: center; }
+    .social-icon { 
+      display: inline-flex; 
+      align-items: center; 
+      margin-right: 15px; 
+      color: #444; 
+      font-size: 0.95em; 
+    }
+    .social-icon svg { width: 22px; height: 22px; margin-right: 6px; fill: #444; transition: fill 0.2s; }
+    .social-icon:hover { color: #1e6bb8; text-decoration: none; }
+    .social-icon:hover svg { fill: #1e6bb8; }
     
     /* ============================
        Section Titles
        ============================ */
     .section-title { 
       font-size: 1.5em;
-      margin-top: 40px; 
-      margin-bottom: 20px;
+      margin-top: 50px; 
+      margin-bottom: 25px;
       color: #000;
       border-bottom: 2px solid #f0f0f0;
       padding-bottom: 8px;
@@ -67,6 +100,7 @@
     .news-table tr td { padding-bottom: 12px; vertical-align: top; }
     .news-date { 
       width: 15%; 
+      min-width: 90px;
       font-weight: bold; 
       color: #444; 
       white-space: nowrap; 
@@ -88,12 +122,12 @@
       color: #1967d2;
       padding: 2px 8px;
       border-radius: 4px;
-      font-size: 0.9em;
+      font-size: 0.85em;
       font-weight: 600;
       margin-right: 8px;
       border: 1px solid #d2e3fc;
     }
-    .paper-conf-details { font-style: italic; color: #666; }
+    .paper-conf-details { font-style: italic; color: #666; font-size: 0.95em; }
 
     /* 按钮组 */
     .btn-group { margin-top: 8px; }
@@ -119,8 +153,9 @@
        ============================ */
     @media (max-width: 700px) {
       .header-container { flex-direction: column-reverse; align-items: center; text-align: center; }
-      .bio-text { padding-right: 0; margin-top: 20px; }
-      .profile-img { width: 150px; height: 150px; }
+      .bio-text { padding-right: 0; margin-top: 25px; }
+      .social-links { justify-content: center; }
+      .profile-img { width: 160px; height: 160px; }
       .news-date { width: 25%; }
     }
   </style>
@@ -131,28 +166,45 @@
   <div class="header-container">
     <div class="bio-text">
       <h1>Yuxi Liu (刘玉玺)</h1>
-      <p style="font-size: 1.1em;">
+      
+      <div class="bio-subtitle">
         <strong>PhD Student in Computer Engineering</strong><br>
         Department of Electrical and Computer Engineering<br>
         <a href="https://www.uwo.ca/" target="_blank">Western University</a>, Canada
-      </p>
+      </div>
       
       <p>
         I am a Ph.D. student at Western University, advised by <a href="#">Prof. Yimin Yang</a>. 
         Before joining Western, I received my M.Sc. degree from Zhengzhou University (2022).
       </p>
       
+      <p style="margin-bottom: 10px; color: #444; font-weight: bold;">Research Interests:</p>
+      <div style="margin-bottom: 15px;">
+        <span class="interest-tag">Network Science</span>
+        <span class="interest-tag">Model Optimization</span>
+        <span class="interest-tag">Time Series Analysis</span>
+        <span class="interest-tag">RNNs & ESNs</span>
+      </div>
       <p>
-        My research interests primarily lie in <strong>Network Science, Model Optimization, and Time Series Analysis</strong>. 
-        Specifically, I focus on Recurrent Neural Networks (RNNs), Echo State Networks (ESNs), and their applications in spatiotemporal data analysis.
-        Now I am working on the Coreset&LLM Rec.
+         Currently, I am working on <strong>Coreset & LLM Recommendation</strong>.
       </p>
 
-      <p>
-        <a href="mailto:yliu4929@uwo.ca">Email</a> &nbsp;/&nbsp;
-        <a href="https://github.com/sankunliu" target="_blank">GitHub</a> &nbsp;/&nbsp;
-        <a href="https://scholar.google.com/citations?user=QrTfgTUAAAAJ&hl=zh-CN" target="_blank">Google Scholar</a>
-      </p>
+      <div class="social-links">
+        <a href="mailto:yliu4929@uwo.ca" class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </a>
+        
+        <a href="https://github.com/sankunliu" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        
+        <a href="https://scholar.google.com/citations?user=QrTfgTUAAAAJ&hl=zh-CN" target="_blank" class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+          Google Scholar
+        </a>
+      </div>
     </div>
     
     <img src="profile.jpg" alt="Yuxi Liu" class="profile-img">
@@ -178,7 +230,7 @@
 
   <div class="paper">
     <div class="paper-title">Discriminative and regularized echo state network for time series classification</div>
-    <div class="paper-authors">Heshan Wang,<strong>Yuxi Liu</strong> et al.</div>
+    <div class="paper-authors">Heshan Wang, <strong>Yuxi Liu</strong>, et al.</div>
     <div>
       <span class="journal-tag">Pattern Recognition (SCI)</span>
       <span class="paper-conf-details">Volume 130, Oct 2022</span>
@@ -191,7 +243,7 @@
 
   <div class="paper">
     <div class="paper-title">Echo state network with logistic mapping and bias dropout for time series prediction</div>
-    <div class="paper-authors"> Heshan Wang,<strong>Yuxi Liu</strong> et al.</div>
+    <div class="paper-authors">Heshan Wang, <strong>Yuxi Liu</strong>, et al.</div>
     <div>
       <span class="journal-tag">Neurocomputing (SCI)</span>
       <span class="paper-conf-details">Jun 2022</span>
@@ -210,7 +262,7 @@
       <span class="paper-conf-details">International Conference on Neural Computing for Advanced Applications</span>
     </div>
     <div class="btn-group">
-      <a href="https://www.researchgate.net/publication/364602005_Multi-layer_Echo_State_Network_with_Nonlinear_Vector_Autoregression_Reservoir_for_Time_Series_Prediction" class="btn" target="_blank">PDF</a>
+      <a href="https://link.springer.com/chapter/10.1007/978-981-19-6142-7_37" class="btn" target="_blank">Paper Link</a>
     </div>
   </div>
 
@@ -224,7 +276,7 @@
       <strong>Zhengzhou University</strong>, China (2019 - 2022)<br>
       M.Sc. in Control Science and Engineering
     </li>
-    </ul>
+  </ul>
 
   <div style="height: 50px;"></div>
 
